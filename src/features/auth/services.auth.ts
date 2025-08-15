@@ -20,3 +20,24 @@ export async function signup(data: {
     throw new Error('Signup failed');
   });
 }
+
+export async function getSession(token?: string) {
+  return await api
+    .post(
+      '/auth/session',
+      {},
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
+    .catch((err) => {
+      if (err.response?.status === 401)
+        throw new Error('Session has expired, please login again');
+
+      throw new Error(
+        err.response?.data?.message || 'Failed to retrieve session'
+      );
+    });
+}

@@ -4,6 +4,7 @@ import { useLogin } from './hooks.auth';
 import { useState } from 'react';
 import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
+import useAppAuth from '@/hooks/useAppAuth';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -11,6 +12,7 @@ const Login = () => {
 
   const { mutate: login, isPending } = useLogin();
   const navigate = useNavigate();
+  const [, setData] = useAppAuth();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -19,13 +21,14 @@ const Login = () => {
     login(
       { email, password },
       {
-        onSuccess: () => {
+        onSuccess: (data) => {
           toast.success('Login successful!');
+          console.log(data.data?.token);
           navigate('/chat');
+          setData({ ...data.data?.user, token: data.data?.token });
         },
 
-        onError: () =>
-          toast.error('Login failed. Please check your credentials.'),
+        onError: (err) => toast.error(err.message),
       }
     );
   };

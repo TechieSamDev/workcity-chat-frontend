@@ -4,6 +4,10 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Send } from 'lucide-react';
+import { useSession } from '../auth/hooks.auth';
+import { toast } from 'sonner';
+import { useNavigate } from 'react-router-dom';
+import useAppAuth from '@/hooks/useAppAuth';
 // const messages = []
 const messages = [
   {
@@ -107,15 +111,27 @@ type ChatWith = 'agent' | 'merchant';
 const Chat = () => {
   const [chatting, setChatting] = useState<boolean>();
   const chattingWith = useRef<ChatWith>(null);
+  const [data] = useAppAuth();
+  const { isLoading, error } = useSession(data?.token as string);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (error) {
+      toast.error(
+        error.message || 'An error occurred while fetching session data'
+      );
+      navigate('/login');
+    }
+  }, [error, navigate]);
 
   const handleStartChat = () => {
     if (!chattingWith.current) return;
     setChatting(true);
   };
 
-  useEffect(() => {
-    console.log('hh');
-  }, [chatting]);
+  if (isLoading || error /*added error to prevent chat page flash*/)
+    return <div>Loading...</div>;
+
   return (
     <div className="flex h-screen border items-center justify-center">
       <div className="border">
