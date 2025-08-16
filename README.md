@@ -1,69 +1,111 @@
-# React + TypeScript + Vite
+# React Chat Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern React application built with Vite, featuring real-time chat functionality with authentication.
 
-Currently, two official plugins are available:
+## Tech Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **React** - Frontend framework
+- **Vite** - Build tool and development server
+- **Tailwind CSS** - Utility-first CSS framework
+- **shadcn/ui** - UI component library
+- **Socket.io** - Real-time communication
+- **TypeScript** - Type safety
 
-## Expanding the ESLint configuration
+## Getting Started
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Prerequisites
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- Node.js (version 16 or higher)
+- npm or yarn package manager
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+### Installation
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+1. Clone the repository
+```bash
+git clone <repository-url>
+cd <project-name>
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+2. Install dependencies
+```bash
+npm install
+# or
+yarn install
 ```
+
+3. Create environment file (optional)
+```bash
+cp .env.example .env
+```
+
+Configure your environment variables in `.env`:
+```env
+VITE_SERVER_URL=<deployed_backend_url>/api
+VITE_ENV_SOCKET_URL=<deployed_backend_url>
+```
+
+*The app will use fallback values if no environment file is provided.*
+
+4. Start the development server
+```bash
+npm run dev
+# or
+yarn dev
+```
+
+5. Open your browser and navigate to `http://localhost:5173`
+
+## Project Structure
+
+```
+src/
+├── assets/          # Static assets (images, icons, etc.)
+├── components/      # Reusable UI components
+├── hooks/           # Custom React hooks (e.g., useAppAuth)
+├── libs/            # External service configurations
+│   ├── socket.js    # Socket.io instance and configuration
+│   └── api.js       # API client instance
+├── types/           # TypeScript type definitions
+└── features/        # Feature-based modules
+    ├── auth/        # Authentication related components and logic
+    └── chat/        # Chat functionality components and logic
+```
+
+## Environment Variables
+
+Create a `.env` file in the root directory with the following variables:
+
+```env
+VITE_SERVER_URL=<deployed_backend_url>/api
+VITE_ENV_SOCKET_URL=<deployed_backend_url>
+```
+
+Replace `<deployed_backend_url>` with your actual backend server URL.
+
+**Note:** The application will fallback to default values if these environment variables are not provided, allowing for local development without requiring a `.env` file.
+
+## Available Scripts
+
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build locally
+- `npm run lint` - Run ESLint
+
+## Features
+
+- **Authentication** - User login and registration
+- **Real-time Chat** - Live messaging with Socket.io
+- **Modern UI** - Clean interface built with Tailwind CSS and shadcn/ui
+- **Type Safety** - Full TypeScript support
+- **Responsive Design** - Works on desktop and mobile devices
+
+## Development
+
+The project follows a feature-based folder structure where each feature contains its own components, hooks, and logic. Common utilities and configurations are stored in the `libs` folder.
+
+### Key Files
+
+- `libs/socket.js` - Socket.io client configuration
+- `libs/api.js` - HTTP client setup
+- `hooks/useAppAuth.js` - Authentication state management
+- `types/` - TypeScript definitions for the application
