@@ -1,6 +1,7 @@
 # React Chat Application
 
 A modern React application built with Vite, featuring real-time chat functionality with authentication.
+Live App Available at https://workcity-chat-frontend-techiesam.vercel.app
 
 ## Tech Stack
 
