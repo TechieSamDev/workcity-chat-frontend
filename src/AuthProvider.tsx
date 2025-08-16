@@ -1,10 +1,11 @@
 import React, { createContext, useState } from 'react';
 import type { User } from './types';
 
-type AuthState = {
-  user: User | null;
-  token: string | null;
-};
+type AuthState =
+  | ({
+      token: string | null;
+    } & User)
+  | null;
 
 type AuthContextType = [
   AuthState,
@@ -16,7 +17,7 @@ export const AuthContext = createContext<AuthContextType | undefined>(
 );
 
 const AuthProvider = ({ children }: React.PropsWithChildren) => {
-  const [data, setData] = useState<AuthState>({ user: null, token: null });
+  const [data, setData] = useState<AuthState>(null);
 
   return (
     <AuthContext.Provider value={[data, setData]}>

@@ -3,7 +3,7 @@ import { Input } from '@/components/ui/input';
 import { useLogin } from './hooks.auth';
 import { useState } from 'react';
 import { toast } from 'sonner';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import useAppAuth from '@/hooks/useAppAuth';
 
 const Login = () => {
@@ -68,6 +68,12 @@ const Login = () => {
               </span>
             </div>
           </div>
+        </div>
+        <div>
+          <Link to="/signup" className="">
+            <span className="text-gray-500">No Account? </span>
+            <span className="underline text-blue-500">Sign Up</span>
+          </Link>
         </div>
 
         <Button className="w-full mt-3" disabled={isPending}>

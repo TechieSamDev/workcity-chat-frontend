@@ -3,7 +3,7 @@ import { Input } from '@/components/ui/input';
 import { useState } from 'react';
 import { useSignup } from './hooks.auth';
 import { toast } from 'sonner';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const SignUp = () => {
   const [email, setEmail] = useState('');
@@ -58,6 +58,12 @@ const SignUp = () => {
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Enter your password"
             />
+          </div>
+          <div>
+            <Link to="/login" className="">
+              <span className="text-gray-500">Already Have an Account </span>
+              <span className="underline text-blue-500">Log In</span>
+            </Link>
           </div>
         </div>
 
